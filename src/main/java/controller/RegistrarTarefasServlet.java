@@ -26,25 +26,33 @@ public class RegistrarTarefasServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
 		String titulo = request.getParameter("titulo");
 		String descricao = request.getParameter("descricao");
 		
 		Integer id = (Integer) request.getSession().getAttribute("id");
+		
+		TarefaServlet tarefaServelet = new TarefaServlet();
 
 		Tarefa tarefa = new Tarefa();
 		tarefa.setTitulo(titulo);
 		tarefa.setDescricao(descricao);
+		
+		String concluido = request.getParameter("concluido");
+		
+		if (concluido == null) {
+			tarefa.setStatus("Em aberto");
+		}
 
 		try {
 			tarefa.setIdUsuario(id);
-			
 			tarefaDao.registrarTarefa(tarefa);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/tarefas.jsp");
+			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			throw new ServletException("Erro ao registrar tarefa", e);
 		}
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/tarefas.jsp");
-		dispatcher.forward(request, response);
 	}
 }

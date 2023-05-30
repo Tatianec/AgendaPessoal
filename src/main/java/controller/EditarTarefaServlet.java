@@ -47,12 +47,16 @@ public class EditarTarefaServlet extends HttpServlet{
 
 		String titulo = request.getParameter("titulo");
 		String descricao = request.getParameter("descricao");
-		String status = request.getParameter("status");
+		
+		String concluido = request.getParameter("concluido");
 
 		Tarefa tarefa = new Tarefa();
 		tarefa.setTitulo(titulo);
 		tarefa.setDescricao(descricao);
-		tarefa.setStatus(status);
+		
+		if (!concluido.isEmpty()) {
+		    tarefa.setStatus("Concluído");
+		}
 
 		try {
 			int idTarefa = Integer.parseInt(idTarefaString);
@@ -66,4 +70,5 @@ public class EditarTarefaServlet extends HttpServlet{
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/tarefas.jsp");
 		dispatcher.forward(request, response);
 	}
+	
 }

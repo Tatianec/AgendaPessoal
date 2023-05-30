@@ -20,7 +20,7 @@ public class TarefaDao {
 
 		Date dataCriacaoSql = new Date(dataCriacao.getTime());
 
-		String INSERT_TAREFA_SQL = "insert into tarefas (titulo, descricao, data_criacao, usuario_id) values (?, ?, ?, ?);";
+		String INSERT_TAREFA_SQL = "insert into tarefas (titulo, descricao, data_criacao, status, usuario_id) values (?, ?, ?, ?, ?);";
 
 		int result = 0;
 
@@ -33,7 +33,8 @@ public class TarefaDao {
 			preparedStatement.setString(1, tarefa.getTitulo());
 			preparedStatement.setString(2, tarefa.getDescricao());
 			preparedStatement.setDate(3, dataCriacaoSql);
-			preparedStatement.setInt(4, tarefa.getIdUsuario());
+			preparedStatement.setString(4, tarefa.getStatus());
+			preparedStatement.setInt(5, tarefa.getIdUsuario());
 
 			System.out.println(preparedStatement);
 
@@ -114,8 +115,12 @@ public class TarefaDao {
 	}
 	
 	public int atualizarTarefa(Tarefa tarefa) throws ClassNotFoundException {
+		
+		java.util.Date dataConclusao = new java.util.Date(); 
 
-		String INSERT_TAREFA_SQL = "UPDATE tarefas SET titulo = ?, descricao = ?, status = ? WHERE id = ?;";
+		Date dataConclusaoSql = new Date(dataConclusao.getTime());
+
+		String INSERT_TAREFA_SQL = "UPDATE tarefas SET titulo = ?, descricao = ?, data_conclusao = ?, status = ? WHERE id = ?;";
 
 		int result = 0;
 
@@ -125,13 +130,25 @@ public class TarefaDao {
 				"root", "T8157124*");
 
 			PreparedStatement preparedStatement = connection.prepareStatement(INSERT_TAREFA_SQL)) {
-			preparedStatement.setString(1, tarefa.getTitulo());
-			preparedStatement.setString(2, tarefa.getDescricao());
-			preparedStatement.setString(3, tarefa.getStatus());
-			preparedStatement.setInt(4, tarefa.getId());
+	        preparedStatement.setString(1, tarefa.getTitulo());
+	        preparedStatement.setString(2, tarefa.getDescricao());
 
+	        String status = tarefa.getStatus();
+	        
+	        System.out.println(status);
+	        
+	        if (status.equals("Concluído")) {
+	            preparedStatement.setDate(3, dataConclusaoSql);
+	            preparedStatement.setString(4, status);
+	        } else {
+	            preparedStatement.setDate(3, null);
+	            preparedStatement.setString(4, "Em aberto");
+	        }
+
+	        preparedStatement.setInt(5, tarefa.getId());
+	        
 			System.out.println(preparedStatement);
-
+			
 			result = preparedStatement.executeUpdate();
 
 			preparedStatement.close();
