@@ -22,29 +22,24 @@ public class TarefaServlet extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+            throws ServletException, IOException {
 
-		String idUsuarioString = (String) request.getAttribute("id");
+        Integer id = (Integer) request.getSession().getAttribute("id");
 
-		try {
-			int id = Integer.parseInt(idUsuarioString);
-			
-			List<Tarefa> tarefas = tarefaDao.getTarefasByIdUsuario(id);
+        try {
+            List<Tarefa> tarefas = tarefaDao.getTarefasByIdUsuario(id);
 
-			request.setAttribute("tarefas", tarefas);
-			
-			request.getSession().setAttribute("id", id);
-			
-			System.out.println("Total de tarefas encontradas: " + tarefas.size());
+            request.setAttribute("tarefas", tarefas);
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/tarefas.jsp");
-			dispatcher.forward(request, response);			
+            System.out.println("Total de tarefas encontradas: " + tarefas.size());
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}	
-	
-	}
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/tarefas.jsp");
+            dispatcher.forward(request, response);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	        throws ServletException, IOException {

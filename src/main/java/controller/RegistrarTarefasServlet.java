@@ -48,8 +48,8 @@ public class RegistrarTarefasServlet extends HttpServlet {
 			tarefa.setIdUsuario(id);
 			tarefaDao.registrarTarefa(tarefa);
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/tarefas.jsp");
-			dispatcher.forward(request, response);
+            request.getSession().setAttribute("id", id);
+            response.sendRedirect(request.getContextPath() + "/tarefas");
 		} catch (Exception e) {
 			throw new ServletException("Erro ao registrar tarefa", e);
 		}

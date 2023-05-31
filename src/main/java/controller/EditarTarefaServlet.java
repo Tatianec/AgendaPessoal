@@ -49,12 +49,14 @@ public class EditarTarefaServlet extends HttpServlet{
 		String descricao = request.getParameter("descricao");
 		
 		String concluido = request.getParameter("concluido");
+		
+		System.out.println(concluido);
 
 		Tarefa tarefa = new Tarefa();
 		tarefa.setTitulo(titulo);
 		tarefa.setDescricao(descricao);
 		
-		if (!concluido.isEmpty()) {
+		if (concluido != null) {
 		    tarefa.setStatus("Concluído");
 		}
 
@@ -63,12 +65,14 @@ public class EditarTarefaServlet extends HttpServlet{
 			tarefa.setId(idTarefa);
 		        
 			tarefaDao.atualizarTarefa(tarefa);
+			
+            request.setAttribute("id", tarefa.getIdUsuario());
+            response.sendRedirect(request.getContextPath() + "/tarefas");
+
 		} catch (Exception e) {
 			throw new ServletException("Erro ao atualizar a tarefa", e);
 		}
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/tarefas.jsp");
-		dispatcher.forward(request, response);
 	}
 	
 }

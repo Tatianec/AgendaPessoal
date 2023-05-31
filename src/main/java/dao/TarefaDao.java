@@ -137,12 +137,12 @@ public class TarefaDao {
 	        
 	        System.out.println(status);
 	        
-	        if (status.equals("Concluído")) {
-	            preparedStatement.setDate(3, dataConclusaoSql);
-	            preparedStatement.setString(4, status);
-	        } else {
+	        if (status == null) {
 	            preparedStatement.setDate(3, null);
 	            preparedStatement.setString(4, "Em aberto");
+	        } else {
+	            preparedStatement.setDate(3, dataConclusaoSql);
+	            preparedStatement.setString(4, status);
 	        }
 
 	        preparedStatement.setInt(5, tarefa.getId());
