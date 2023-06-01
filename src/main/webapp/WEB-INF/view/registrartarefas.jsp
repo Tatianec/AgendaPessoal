@@ -42,15 +42,6 @@ input[type="text"] {
 	padding: 6px;
 }
 
-.checkbox-group {
-	display: flex;
-	align-items: center;
-}
-
-.checkbox-group label {
-	margin-left: 6px;
-}
-
 input[type="submit"] {
 	background-color: #4CAF50;
 	color: white;
@@ -75,15 +66,6 @@ input[type="submit"] {
 			<tr>
 				<td><label for="descricao">Descrição:</label></td>
 				<td><input type="text" id="descricao" name="descricao" /></td>
-			</tr>
-			<tr>
-				<td><label for="concluido">Concluído:</label></td>
-				<td>
-					<div class="checkbox-group">
-						<input type="checkbox" id="concluido" name="concluido"
-							value="concluido" /> <label for="concluido">Concluído</label>
-					</div>
-				</td>
 			</tr>
 		</table>
 		<input type="submit" value="cadastrar" />

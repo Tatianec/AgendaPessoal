@@ -49,8 +49,6 @@ public class EditarTarefaServlet extends HttpServlet{
 		String descricao = request.getParameter("descricao");
 		
 		String concluido = request.getParameter("concluido");
-		
-		System.out.println(concluido);
 
 		Tarefa tarefa = new Tarefa();
 		tarefa.setTitulo(titulo);

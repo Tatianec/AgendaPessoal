@@ -16,6 +16,8 @@ public class TarefaDao {
 
 	public int registrarTarefa(Tarefa tarefa) throws ClassNotFoundException {
 
+		String status = "Em aberto";
+		
 		java.util.Date dataCriacao = new java.util.Date(); 
 
 		Date dataCriacaoSql = new Date(dataCriacao.getTime());
@@ -33,7 +35,7 @@ public class TarefaDao {
 			preparedStatement.setString(1, tarefa.getTitulo());
 			preparedStatement.setString(2, tarefa.getDescricao());
 			preparedStatement.setDate(3, dataCriacaoSql);
-			preparedStatement.setString(4, tarefa.getStatus());
+			preparedStatement.setString(4, status);
 			preparedStatement.setInt(5, tarefa.getIdUsuario());
 
 			System.out.println(preparedStatement);

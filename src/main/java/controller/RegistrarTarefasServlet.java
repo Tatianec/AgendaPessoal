@@ -37,12 +37,6 @@ public class RegistrarTarefasServlet extends HttpServlet {
 		Tarefa tarefa = new Tarefa();
 		tarefa.setTitulo(titulo);
 		tarefa.setDescricao(descricao);
-		
-		String concluido = request.getParameter("concluido");
-		
-		if (concluido == null) {
-			tarefa.setStatus("Em aberto");
-		}
 
 		try {
 			tarefa.setIdUsuario(id);
