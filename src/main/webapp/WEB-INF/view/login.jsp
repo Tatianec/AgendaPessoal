@@ -26,14 +26,14 @@ table {
 }
 
 td {
-	height: 50px; 
-	font-size : 25px;
+	height: 50px;
+	font-size: 25px;
 }
 
 input[type="text"], input[type="password"] {
 	width: 100%;
 	padding: 1px;
-	height: 30px; 
+	height: 30px;
 	border: 1px solid #ccc;
 	border-radius: 3px;
 }
@@ -41,7 +41,7 @@ input[type="text"], input[type="password"] {
 input[type="submit"] {
 	width: 20%;
 	padding: 2px;
-	height: 30px; 
+	height: 30px;
 	margin-left: 50%;
 	margin-right: 30%;
 	background-color: black;
@@ -59,9 +59,42 @@ form {
 	margin-top: 5%;
 }
 
+.menu {
+	width: 100%;
+	background-color: #f2f2f2;
+}
+
+.menu ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+.menu li {
+	float: left;
+}
+
+.menu li a {
+	display: block;
+	color: black;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+.menu li a:hover {
+	background-color: #ddd;
+}
+
 </style>
 </head>
 <body>
+	<div class="menu">
+		<ul>
+			<li><a href="registerUsuario">Cadastrar Usuário</a></li>
+		</ul>
+	</div>
 	<h1>Informe os dados para login</h1>
 	<form action="<%=request.getContextPath()%>/login" method="post">
 		<table style="with: 80%">

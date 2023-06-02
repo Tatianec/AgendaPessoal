@@ -53,9 +53,44 @@ input[type="submit"] {
 	margin-right: 40%;
 	margin-left: 40%;
 }
+
+
+.menu {
+	width: 100%;
+	background-color: #f2f2f2;
+}
+
+.menu ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+.menu li {
+	float: left;
+}
+
+.menu li a {
+	display: block;
+	color: black;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+.menu li a:hover {
+	background-color: #ddd;
+}
+
 </style>
 </head>
 <body>
+	<div class="menu">
+		<ul>
+			<li><a href="login">Voltar ao login</a></li>
+		</ul>
+	</div>
 	<h1>Registro de Novo Usuario</h1>
 	<form action="<%=request.getContextPath()%>/registerUsuario"
 		method="post">

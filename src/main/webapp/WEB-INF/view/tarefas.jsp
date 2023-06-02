@@ -11,14 +11,14 @@
 body {
 	margin: 0;
 	padding: 0;
-	display: flex;
+	display: block;
 	align-items: center;
 	justify-content: center;
 }
 
 .container {
 	width: 100%;
-	margin: 10px;
+	margin-top: 1%;
 }
 
 table {
@@ -59,22 +59,6 @@ button {
 	cursor: pointer;
 }
 
-.Botao1 {
-	display: inline-block;
-	background-color: #32CD32;
-	color: white;
-	padding: 8px 16px;
-	text-align: center;
-	text-decoration: none;
-	font-size: 14px;
-	border-radius: 4px;
-	transition: background-color 0.3s ease;
-}
-
-.Botao1:hover {
-	background-color: #45a049;
-}
-
 .Botao2 {
 	background-color: #FFA500;
 	color: white;
@@ -89,9 +73,43 @@ button {
 	background-color: #FF8C00;
 }
 
+
+.menu {
+	width: 100%;
+	background-color: #f2f2f2;
+}
+
+.menu ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+.menu li {
+	float: left;
+}
+
+.menu li a {
+	display: block;
+	color: black;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+.menu li a:hover {
+	background-color: #ddd;
+}
+
 </style>
 </head>
 <body>
+	<div class="menu">
+		<ul>
+			<li><a href="registrarTarefas?id=${id}">Nova Tarefa</a></li>
+		</ul>
+	</div>
 	<div class="container">
 		<table>
 			<tr>
@@ -120,7 +138,6 @@ button {
 				</tr>
 			</c:forEach>
 		</table>
-		<a href="registrarTarefas?id=${id}" class="Botao1">Nova Tarefa</a>
 	</div>
 </body>
 </html>
