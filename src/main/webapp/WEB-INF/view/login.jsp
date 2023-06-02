@@ -74,7 +74,7 @@ form {
 				<td><input type="password" name="senha" /></td>
 			</tr>
 		</table>
-		<input type="submit" value="Submit" />
+		<input type="submit" value="Entrar" />
 	</form>
 </body>
 </html>

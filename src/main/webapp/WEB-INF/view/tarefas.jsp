@@ -34,7 +34,7 @@ td {
 }
 
 th {
-	background-color: #f2f2f2;
+	background-color: #696969;
 	height: 20px;
 	width: 250px;
 	border-bottom: 2px solid #ddd;
@@ -42,7 +42,7 @@ th {
 }
 
 tr:nth-child(even) {
-	background-color: #f2f2f2;
+	background-color: #D3D3D3;
 }
 
 a {
@@ -51,7 +51,7 @@ a {
 }
 
 button {
-	background-color: #f44336;
+	background-color: #FF0000;
 	color: white;
 	padding: 6px 12px;
 	border: none;
@@ -61,7 +61,7 @@ button {
 
 .Botao1 {
 	display: inline-block;
-	background-color: #4CAF50;
+	background-color: #32CD32;
 	color: white;
 	padding: 8px 16px;
 	text-align: center;
@@ -74,6 +74,21 @@ button {
 .Botao1:hover {
 	background-color: #45a049;
 }
+
+.Botao2 {
+	background-color: #FFA500;
+	color: white;
+	padding: 6px 12px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+
+.Botao2:hover {
+	background-color: #FF8C00;
+}
+
 </style>
 </head>
 <body>
@@ -85,7 +100,7 @@ button {
 				<th>Data Criação</th>
 				<th>Data Conclusão</th>
 				<th>Status</th>
-				<th>Editar</th>
+				<th></th>
 				<th></th>
 			</tr>
 			<c:forEach items="${requestScope.tarefas}" var="c">
@@ -95,7 +110,7 @@ button {
 					<td>${c.getDataCriacao()}</td>
 					<td>${c.getDataConclusao()}</td>
 					<td>${c.getStatus()}</td>
-					<td><a href="editarTarefa?id=${c.getId()}">Editar</a></td>
+					<td><a href="editarTarefa?id=${c.getId()}" class="Botao2">Editar</a></td>
 					<td>
 						<form method="post" action="excluirTarefa">
 							<input type="hidden" name="id" value="${c.getId()}">

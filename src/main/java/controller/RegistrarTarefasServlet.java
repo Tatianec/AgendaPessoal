@@ -31,8 +31,6 @@ public class RegistrarTarefasServlet extends HttpServlet {
 		String descricao = request.getParameter("descricao");
 		
 		Integer id = (Integer) request.getSession().getAttribute("id");
-		
-		TarefaServlet tarefaServelet = new TarefaServlet();
 
 		Tarefa tarefa = new Tarefa();
 		tarefa.setTitulo(titulo);

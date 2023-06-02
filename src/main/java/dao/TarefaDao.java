@@ -29,7 +29,7 @@ public class TarefaDao {
 		Class.forName("com.mysql.jdbc.Driver");
 
 		try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda?useSSL=false",
-				"", "");
+				"root", "T8157124*");
 
 			PreparedStatement preparedStatement = connection.prepareStatement(INSERT_TAREFA_SQL)) {
 			preparedStatement.setString(1, tarefa.getTitulo());
@@ -59,7 +59,7 @@ public class TarefaDao {
 	    Class.forName("com.mysql.jdbc.Driver");
 
 	    try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda?useSSL=false",
-	            "", "");
+	    		"root", "T8157124*");
 
 	            PreparedStatement preparedStatement = connection.prepareStatement(GET_TAREFAS_SQL)) {
 	        preparedStatement.setInt(1, id);
@@ -94,7 +94,7 @@ public class TarefaDao {
 	    Class.forName("com.mysql.jdbc.Driver");
 
 	    try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda?useSSL=false",
-	            "", "");
+	    		"root", "T8157124*");
 
 	            PreparedStatement preparedStatement = connection.prepareStatement(GET_TAREFAS_SQL)) {
 	        preparedStatement.setInt(1, id);
@@ -129,7 +129,7 @@ public class TarefaDao {
 		Class.forName("com.mysql.jdbc.Driver");
 
 		try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda?useSSL=false",
-				"", "");
+				"root", "T8157124*");
 
 			PreparedStatement preparedStatement = connection.prepareStatement(INSERT_TAREFA_SQL)) {
 	        preparedStatement.setString(1, tarefa.getTitulo());
@@ -171,7 +171,7 @@ public class TarefaDao {
 	    Class.forName("com.mysql.jdbc.Driver");
 
 		try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda?useSSL=false",
-				"", "");
+				"root", "T8157124*");
 
 	            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_TAREFA_SQL)) {
 	        preparedStatement.setInt(1, id);
