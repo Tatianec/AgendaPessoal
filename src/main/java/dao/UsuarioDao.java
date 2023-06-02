@@ -20,7 +20,7 @@ public class UsuarioDao {
 		Class.forName("com.mysql.jdbc.Driver");
 
 		try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda?useSSL=false",
-				"root", "T8157124*");
+				"", "");
 
 				// Step 2:Create a statement using connection object
 				PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL)) {
@@ -51,7 +51,7 @@ public class UsuarioDao {
 		Class.forName("com.mysql.jdbc.Driver");
 
 		try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda?useSSL=false",
-				"root", "T8157124*");
+				"", "");
 
 				PreparedStatement preparedStatement = connection.prepareStatement(GET_USERS_SQL)) {
 			preparedStatement.setString(1, login);
@@ -71,10 +71,5 @@ public class UsuarioDao {
 		}
 
 		return id;
-	}
-
-	public Usuario getUsuarioByLogin(String login, String senha) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }
