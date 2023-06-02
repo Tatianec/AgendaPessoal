@@ -1,0 +1,28 @@
+-- Criação do banco de dados
+CREATE DATABASE agenda  /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+
+-- drop database agenda;
+
+-- Selecionar o banco de dados
+USE agenda;
+
+-- Criação da tabela "usuarios"
+CREATE TABLE usuarios (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  login VARCHAR(50) NOT NULL,
+  senha VARCHAR(50) NOT NULL,
+  nome VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Criação da tabela "tarefas"
+CREATE TABLE tarefas (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  titulo VARCHAR(100) NOT NULL,
+  descricao VARCHAR(100),
+  data_criacao DATE NOT NULL,
+  data_conclusao DATE,
+  status VARCHAR(20),
+  usuario_id INT,
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
