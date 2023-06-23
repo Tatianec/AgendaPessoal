@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,11 +69,9 @@ button {
 	cursor: pointer;
 }
 
-
 .Botao2:hover {
 	background-color: #FF8C00;
 }
-
 
 .menu {
 	width: 100%;
@@ -102,6 +101,26 @@ button {
 	background-color: #ddd;
 }
 
+.search-form {
+	margin-top: 10px;
+	margin-right: 20px;
+	float: right;
+}
+
+.search-form input[type="text"] {
+	padding: 5px;
+	border: none;
+	border-radius: 3px;
+}
+
+.search-form button {
+	background-color: #337ab7;
+	color: white;
+	padding: 5px 10px;
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -111,6 +130,13 @@ button {
 		</ul>
 	</div>
 	<div class="container">
+		<div class="search-form">
+			<form method="GET" action="tarefas">
+				<input type="text" name="filtro" placeholder="Filtrar por título">
+				<button type="submit">Filtrar</button>
+			</form>
+		</div>
+
 		<table>
 			<tr>
 				<th>Título</th>
@@ -121,22 +147,25 @@ button {
 				<th></th>
 				<th></th>
 			</tr>
-			<c:forEach items="${requestScope.tarefas}" var="c">
+			<c:forEach items="${tarefas}" var="tarefa">
 				<tr>
-					<td>${c.getTitulo()}</td>
-					<td>${c.getDescricao()}</td>
-					<td>${c.getDataCriacao()}</td>
-					<td>${c.getDataConclusao()}</td>
-					<td>${c.getStatus()}</td>
-					<td><a href="editarTarefa?id=${c.getId()}" class="Botao2">Editar</a></td>
+					<td><c:out value="${tarefa.titulo}" /></td>
+					<td><c:out value="${tarefa.descricao}" /></td>
+					<td><c:out value="${tarefa.dataCriacao}" /></td>
+					<td><c:out value="${tarefa.dataConclusao}" /></td>
+					<td><c:out value="${tarefa.status}" /></td>
+					<td><a href="editarTarefa?id=${tarefa.id}" class="Botao2">Editar</a></td>
 					<td>
-						<form method="post" action="excluirTarefa">
-							<input type="hidden" name="id" value="${c.getId()}">
+						<form method="post" action="excluirTarefa"
+							onsubmit="return confirm('Tem certeza de que deseja excluir?')">
+							<input type="hidden" name="id" value="${tarefa.id}">
 							<button type="submit">Excluir</button>
 						</form>
+
 					</td>
 				</tr>
 			</c:forEach>
+
 		</table>
 	</div>
 </body>

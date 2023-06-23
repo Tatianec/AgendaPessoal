@@ -26,7 +26,7 @@ public class TarefaDao {
 
 		int result = 0;
 
-		Class.forName("com.mysql.jdbc.Driver");
+		Class.forName("com.mysql.cj.jdbc.Driver");
 
 		try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda?useSSL=false",
 				"root", "T8157124*");
@@ -186,6 +186,41 @@ public class TarefaDao {
 	    }
 	    return result;
 	}
+	
+	public List<Tarefa> getTarefasByFiltro(int idUsuario, String filtro) throws ClassNotFoundException {
+	    List<Tarefa> tarefas = new ArrayList<>();
 
+	    String GET_TAREFAS_BY_FILTRO_SQL = "SELECT * FROM tarefas WHERE usuario_id = ? AND titulo LIKE ?";
 
+	    Class.forName("com.mysql.jdbc.Driver");
+
+	    try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda?useSSL=false",
+	            "root", "T8157124*");
+
+	        PreparedStatement preparedStatement = connection.prepareStatement(GET_TAREFAS_BY_FILTRO_SQL)) {
+	        preparedStatement.setInt(1, idUsuario);
+	        preparedStatement.setString(2, "%" + filtro + "%");
+
+	        ResultSet rs = preparedStatement.executeQuery();
+
+	        while (rs.next()) {
+	            Tarefa tarefa = new Tarefa();
+	            tarefa.setId(rs.getInt("id"));
+	            tarefa.setTitulo(rs.getString("titulo"));
+	            tarefa.setDescricao(rs.getString("descricao"));
+	            tarefa.setDataCriacao(rs.getDate("data_criacao"));
+	            tarefa.setDataConclusao(rs.getDate("data_conclusao"));
+	            tarefa.setStatus(rs.getString("status"));
+
+	            tarefas.add(tarefa);
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return tarefas;
+	}
+
+	
 }

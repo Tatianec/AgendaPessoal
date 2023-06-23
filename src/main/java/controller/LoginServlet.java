@@ -39,6 +39,7 @@ public class LoginServlet extends HttpServlet {
                 request.getSession().setAttribute("id", id);
                 response.sendRedirect(request.getContextPath() + "/tarefas");
             } else {
+            	request.setAttribute("invalidLogin", true);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/login.jsp");
                 dispatcher.forward(request, response);
             }

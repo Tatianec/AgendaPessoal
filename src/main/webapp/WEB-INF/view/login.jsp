@@ -86,7 +86,6 @@ form {
 .menu li a:hover {
 	background-color: #ddd;
 }
-
 </style>
 </head>
 <body>
@@ -96,15 +95,21 @@ form {
 		</ul>
 	</div>
 	<h1>Informe os dados para login</h1>
+	<%
+	if (request.getAttribute("invalidLogin") != null) {
+	%>
+	<span style="color: red; text-align: center; margin-left: 45%; margin-right: 10%">Usuário não encontrado.</span>
+	<% 
+	} %>
 	<form action="<%=request.getContextPath()%>/login" method="post">
 		<table style="with: 80%">
 			<tr>
 				<td>Login:</td>
-				<td><input type="text" name="login" /></td>
+				<td><input type="text" name="login" required /></td>
 			</tr>
 			<tr>
 				<td>Senha:</td>
-				<td><input type="password" name="senha" /></td>
+				<td><input type="password" name="senha" required /></td>
 			</tr>
 		</table>
 		<input type="submit" value="Entrar" />

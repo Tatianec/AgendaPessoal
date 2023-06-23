@@ -6,63 +6,110 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import model.Usuario;
 
 public class UsuarioDao {
 
 	Usuario user = new Usuario();
+    PasswordEncryptor password = new PasswordEncryptor();
 
-	public int registerUsuario(Usuario usuario) throws ClassNotFoundException {
-		String INSERT_USERS_SQL = "insert into usuarios (login, senha, nome, email) values (?, ?, ?, ?);";
+    public boolean usuarioJaCadastrado(Usuario usuario) throws ClassNotFoundException {
+        String SELECT_USERS_SQL = "select count(*) as count from usuarios where login = ? or email = ?;";
 
-		int result = 0;
+        boolean usuarioExistente = false;
 
-		Class.forName("com.mysql.jdbc.Driver");
+        Class.forName("com.mysql.jdbc.Driver");
 
-		try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda?useSSL=false",
-				"root", "T8157124*");
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda?useSSL=false",
+                "root", "T8157124*");
 
-				// Step 2:Create a statement using connection object
-				PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL)) {
-			preparedStatement.setString(1, usuario.getLogin());
-			preparedStatement.setString(2, usuario.getSenha());
-			preparedStatement.setString(3, usuario.getNome());
-			preparedStatement.setString(4, usuario.getEmail());
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USERS_SQL)) {
+            preparedStatement.setString(1, usuario.getLogin());
+            preparedStatement.setString(2, usuario.getEmail());
 
-			System.out.println(preparedStatement);
-			// Step 3: Execute the query or update query
-			result = preparedStatement.executeUpdate();
+            System.out.println(preparedStatement);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-			preparedStatement.close();
-			connection.close();
+            if (resultSet.next()) {
+                int count = resultSet.getInt("count");
+                usuarioExistente = count > 0;
+            }
 
-		} catch (SQLException e) {
-			// process sql exception
-			e.printStackTrace();
-		}
-		return result;
-	}
+            resultSet.close();
+            preparedStatement.close();
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return usuarioExistente;
+    }
+
+    public int registerUsuario(Usuario usuario) throws ClassNotFoundException {
+        if (usuarioJaCadastrado(usuario)) {
+            return 0;
+        }
+
+        String INSERT_USERS_SQL = "insert into usuarios (login, senha, nome, email) values (?, ?, ?, ?);";
+
+        int result = 0;
+
+        Class.forName("com.mysql.jdbc.Driver");
+
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda?useSSL=false",
+                "root", "T8157124*");
+
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL)) {
+            preparedStatement.setString(1, usuario.getLogin());
+            preparedStatement.setString(2, usuario.getSenha());
+            preparedStatement.setString(3, usuario.getNome());
+            preparedStatement.setString(4, usuario.getEmail());
+
+            System.out.println(preparedStatement);
+
+            result = preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 
 	public int validarUsuario(String login, String senha) throws ClassNotFoundException {
 		int id = 0;
 
-		String GET_USERS_SQL = "select id from usuarios where login = ? and senha = ? ;";
+		
+		String GET_USERS_SQL = "SELECT id, senha FROM usuarios WHERE login = ?";
 
-		Class.forName("com.mysql.jdbc.Driver");
+		Class.forName("com.mysql.cj.jdbc.Driver");
 
 		try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda?useSSL=false",
 				"root", "T8157124*");
 
-				PreparedStatement preparedStatement = connection.prepareStatement(GET_USERS_SQL)) {
+			PreparedStatement preparedStatement = connection.prepareStatement(GET_USERS_SQL)) {
 			preparedStatement.setString(1, login);
-			preparedStatement.setString(2, senha);
 
 			ResultSet rs = preparedStatement.executeQuery();
 
-			if (rs.next()) {
-				id = rs.getInt("id");
-				System.out.println(id);
-			}
+            if (rs.next()) {
+                String hashedPassword = rs.getString("senha");
+                boolean passwordMatch = password.checkPassword(senha, hashedPassword);
+
+                if (passwordMatch) {
+                    id = rs.getInt("id");
+                    System.out.println("Senha correspondente: true");
+                } else {
+                    System.out.println("Senha correspondente: false");
+                }
+            } else {
+                System.out.println("Usuário não encontrado");
+            }
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -72,4 +119,6 @@ public class UsuarioDao {
 
 		return id;
 	}
+	
+
 }

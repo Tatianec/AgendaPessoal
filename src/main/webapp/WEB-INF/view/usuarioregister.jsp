@@ -42,7 +42,7 @@ input[type="text"], input[type="password"] {
 input[type="submit"] {
 	background-color: #4CAF50;
 	color: white;
-	width:140px;
+	width: 140px;
 	height: 40px;
 	text-align: center;
 	text-decoration: none;
@@ -53,7 +53,6 @@ input[type="submit"] {
 	margin-right: 40%;
 	margin-left: 40%;
 }
-
 
 .menu {
 	width: 100%;
@@ -94,25 +93,29 @@ input[type="submit"] {
 	<h1>Registro de Novo Usuario</h1>
 	<form action="<%=request.getContextPath()%>/registerUsuario"
 		method="post">
+		<% if (request.getAttribute("mensagemErro") != null) {%>
+		<p style="color: red; text-align: center;"><%=request.getAttribute("mensagemErro")%></p>
+		<% } %>
 		<table>
 			<tr>
 				<td>Login:</td>
-				<td><input type="text" name="login" /></td>
+				<td><input type="text" name="login" required /></td>
 			</tr>
 			<tr>
 				<td>Senha:</td>
-				<td><input type="password" name="senha" /></td>
+				<td><input type="password" name="senha" required /></td>
 			</tr>
 			<tr>
 				<td>Nome:</td>
-				<td><input type="text" name="nome" /></td>
+				<td><input type="text" name="nome" required /></td>
 			</tr>
 			<tr>
 				<td>Email:</td>
-				<td><input type="text" name="email" /></td>
+				<td><input type="email" name="email" required /></td>
 			</tr>
 		</table>
 		<input type="submit" value="Submit" />
 	</form>
+
 </body>
 </html>

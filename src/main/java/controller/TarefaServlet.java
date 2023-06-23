@@ -21,25 +21,34 @@ public class TarefaServlet extends HttpServlet {
 	public TarefaServlet() {
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    Integer id = (Integer) request.getSession().getAttribute("id");
 
-        Integer id = (Integer) request.getSession().getAttribute("id");
+	    try {
+	        String filtro = request.getParameter("filtro");
 
-        try {
-            List<Tarefa> tarefas = tarefaDao.getTarefasByIdUsuario(id);
+	        List<Tarefa> tarefas;
 
-            request.setAttribute("tarefas", tarefas);
+	        if (filtro != null && !filtro.isEmpty()) {
+	            tarefas = tarefaDao.getTarefasByFiltro(id, filtro);
+	        } else {
+	            tarefas = tarefaDao.getTarefasByIdUsuario(id);
+	        }
 
-            System.out.println("Total de tarefas encontradas: " + tarefas.size());
+	        request.setAttribute("tarefas", tarefas);
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/tarefas.jsp");
-            dispatcher.forward(request, response);
+	        System.out.println("Total de tarefas encontradas: " + tarefas.size());
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	        request.getSession().setAttribute("id", id);
+
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/tarefas.jsp");
+	        dispatcher.forward(request, response);
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	        throws ServletException, IOException {
