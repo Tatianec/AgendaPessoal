@@ -141,8 +141,8 @@ button {
 			<tr>
 				<th>Título</th>
 				<th>Descrição</th>
-				<th>Data Criação</th>
-				<th>Data Conclusão</th>
+				<th>Data da Criação</th>
+				<th>Data da Conclusão</th>
 				<th>Status</th>
 				<th></th>
 				<th></th>

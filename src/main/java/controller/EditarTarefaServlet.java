@@ -49,6 +49,12 @@ public class EditarTarefaServlet extends HttpServlet{
 		String descricao = request.getParameter("descricao");
 		
 		String concluido = request.getParameter("concluido");
+		
+		if(titulo.isEmpty() || descricao.isEmpty()) {
+			request.setAttribute("error", "Os campos título e descrição não podem estar vazios.");
+			doGet(request, response);
+			return;
+		}
 
 		Tarefa tarefa = new Tarefa();
 		tarefa.setTitulo(titulo);

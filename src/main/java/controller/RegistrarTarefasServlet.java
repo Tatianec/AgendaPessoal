@@ -26,24 +26,32 @@ public class RegistrarTarefasServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		String titulo = request.getParameter("titulo");
 		String descricao = request.getParameter("descricao");
-		
+
 		Integer id = (Integer) request.getSession().getAttribute("id");
 
 		Tarefa tarefa = new Tarefa();
-		tarefa.setTitulo(titulo);
-		tarefa.setDescricao(descricao);
 
-		try {
-			tarefa.setIdUsuario(id);
-			tarefaDao.registrarTarefa(tarefa);
-			
-            request.getSession().setAttribute("id", id);
-            response.sendRedirect(request.getContextPath() + "/tarefas");
-		} catch (Exception e) {
-			throw new ServletException("Erro ao registrar tarefa", e);
+		if (titulo.isEmpty() || descricao.isEmpty()) {
+			request.setAttribute("error", "Os campos título e descrição não podem estar vazios.");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/registrartarefas.jsp");
+			dispatcher.forward(request, response);
+			return;
+		} else {
+			tarefa.setTitulo(titulo);
+			tarefa.setDescricao(descricao);
+
+			try {
+				tarefa.setIdUsuario(id);
+				tarefaDao.registrarTarefa(tarefa);
+
+				request.getSession().setAttribute("id", id);
+				response.sendRedirect(request.getContextPath() + "/tarefas");
+			} catch (Exception e) {
+				throw new ServletException("Erro ao registrar tarefa", e);
+			}
 		}
 
 	}

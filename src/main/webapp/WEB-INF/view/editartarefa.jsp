@@ -8,18 +8,20 @@
 <title>Editar Tarefa</title>
 <style>
 body {
-	display: flex;
+	display: block;
 	align-items: center;
 	justify-content: center;
-	height: 50vh;
+	height: 100%;
+	width: 100%;
 	margin: 0;
 	padding: 0;
 	font-size: 20px;
+	position: fixed;
 }
 
 .container {
-	width: 80%;
-	max-width: 600px;
+	width: 90%;
+	margin-left: 5%;
 }
 
 table {
@@ -59,10 +61,25 @@ input[type="submit"] {
 	border-radius: 4px;
 	cursor: pointer;
 }
+
+h1 {
+	text-align: center;
+}
 </style>
 </head>
 <body>
+	<h1>Editar Tarefa</h1>
 	<div class="container">
+		<%
+		if (request.getAttribute("error") != null) {
+		%>
+		<div style="color: red; text-align: center;">
+			<%=request.getAttribute("error")%>
+		</div>
+		<%
+		}
+		%>
+
 		<form method="post">
 			<table>
 				<tr>

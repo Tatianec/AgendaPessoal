@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -23,7 +22,6 @@ public class ExcluirTarefaServlet extends HttpServlet {
         try {
             int idTarefa = Integer.parseInt(idTarefaString);
             tarefaDao.excluirTarefa(idTarefa);
-            System.out.println("Tarefa excluída com sucesso");
     
             response.sendRedirect(request.getContextPath() + "/tarefas");
         } catch (Exception e) {

@@ -59,7 +59,7 @@ public class UsuarioServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/usuariodetails.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/login.jsp");
         dispatcher.forward(request, response);
     }
 

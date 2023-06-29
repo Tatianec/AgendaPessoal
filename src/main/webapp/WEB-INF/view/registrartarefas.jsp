@@ -57,6 +57,9 @@ input[type="submit"] {
 </head>
 <body>
 	<h1>Registrar Tarefa</h1>
+	<% if (request.getAttribute("error") != null) { %>
+	<p style="color: red; text-align: center; margin-top: 20px;"><%= request.getAttribute("error") %></p>
+	<% } %>
 	<form method="post">
 		<table>
 			<tr>

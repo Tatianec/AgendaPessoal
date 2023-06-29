@@ -29,7 +29,6 @@ public class UsuarioDao {
             preparedStatement.setString(1, usuario.getLogin());
             preparedStatement.setString(2, usuario.getEmail());
 
-            System.out.println(preparedStatement);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
@@ -67,8 +66,6 @@ public class UsuarioDao {
             preparedStatement.setString(3, usuario.getNome());
             preparedStatement.setString(4, usuario.getEmail());
 
-            System.out.println(preparedStatement);
-
             result = preparedStatement.executeUpdate();
 
             preparedStatement.close();
@@ -103,7 +100,6 @@ public class UsuarioDao {
 
                 if (passwordMatch) {
                     id = rs.getInt("id");
-                    System.out.println("Senha correspondente: true");
                 } else {
                     System.out.println("Senha correspondente: false");
                 }

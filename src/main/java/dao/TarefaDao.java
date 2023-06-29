@@ -38,8 +38,6 @@ public class TarefaDao {
 			preparedStatement.setString(4, status);
 			preparedStatement.setInt(5, tarefa.getIdUsuario());
 
-			System.out.println(preparedStatement);
-
 			result = preparedStatement.executeUpdate();
 
 			preparedStatement.close();
@@ -136,9 +134,7 @@ public class TarefaDao {
 	        preparedStatement.setString(2, tarefa.getDescricao());
 
 	        String status = tarefa.getStatus();
-	        
-	        System.out.println(status);
-	        
+	        	        
 	        if (status == null) {
 	            preparedStatement.setDate(3, null);
 	            preparedStatement.setString(4, "Em aberto");
@@ -149,8 +145,6 @@ public class TarefaDao {
 
 	        preparedStatement.setInt(5, tarefa.getId());
 	        
-			System.out.println(preparedStatement);
-			
 			result = preparedStatement.executeUpdate();
 
 			preparedStatement.close();

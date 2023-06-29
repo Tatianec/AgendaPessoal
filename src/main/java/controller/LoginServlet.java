@@ -49,8 +49,4 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
-	private boolean isValidLogin(String name, String password) {
-
-		return true;
-	}
 }

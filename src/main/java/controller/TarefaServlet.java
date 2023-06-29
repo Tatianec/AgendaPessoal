@@ -37,8 +37,6 @@ public class TarefaServlet extends HttpServlet {
 
 	        request.setAttribute("tarefas", tarefas);
 
-	        System.out.println("Total de tarefas encontradas: " + tarefas.size());
-
 	        request.getSession().setAttribute("id", id);
 
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/tarefas.jsp");
